@@ -19,6 +19,12 @@
                     <span class="box no-status"></span> clear[3]
                 </label>
             </div>
+            <div>
+                <label>
+                    <input type="radio" value="rest" v-model="selectedStatus" />
+                    <span class="box rest"></span> rest[4]
+                </label>
+            </div>
         </div>
         <div class="months">
             <div class="month" v-for="(monthOffset, index) in [0, 1]" :key="index">
@@ -82,6 +88,9 @@
                 } else if (this.workStatus[dateString] === 'home') {
                     return 'home';
                 }
+                else if (this.workStatus[dateString] === 'rest') {
+                    return 'rest';
+                }
                 return 'no-status';
             },
             updateDayStatus(day) {
@@ -91,6 +100,8 @@
                     this.$set(this.workStatus, dateString, 'office');
                 } else if (this.selectedStatus === 'home') {
                     this.$set(this.workStatus, dateString, 'home');
+                }else if (this.selectedStatus === 'rest') {
+                    this.$set(this.workStatus, dateString, 'rest');
                 } else {
                     this.$set(this.workStatus, dateString, null);
                 }
@@ -127,6 +138,9 @@
                         break;
                     case '3':
                         status = null;
+                        break;
+                    case '4':
+                        status = 'rest';
                         break;
                     default:
                         return;
@@ -176,6 +190,9 @@
           &.home {
             background-color: lightyellow;
           }
+          &.rest {
+            background-color: limegreen;
+          }
           &.no-status {
             background-color: white;
             border: 1px solid #ccc;
@@ -213,6 +230,9 @@
             }
             &.home {
               background-color: lightyellow;
+            }
+            &.rest {
+              background-color: limegreen;
             }
             &.no-status {
               background-color: white;
