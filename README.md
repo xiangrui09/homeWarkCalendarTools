@@ -1,24 +1,83 @@
 # work-calendar
 
-## Project setup
-```
-npm install
-```
+这是一个用 Vue.js 构建的简单工作日历应用。它允许用户按日跟踪工作状态（公司、居家或清除），并且可以使用键盘快捷键更新整周的状态。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 功能
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- **图例**：从图例中选择工作状态（公司、居家或清除）。
+- **月视图**：查看和浏览月份。
+- **每日状态更新**：点击任意日期以更新其状态。
+- **每周状态更新**：鼠标悬停在某个日期上，按 `1`、`2` 或 `3` 来将整周状态更新为公司、居家或清除。
+- **本地存储**：工作状态保存在本地存储中，因此数据在页面重新加载时保持不变。
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 安装
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. 克隆仓库：
+
+    ```sh
+    git clone https://github.com/yourusername/work-calendar.git
+    cd work-calendar
+    ```
+
+2. 安装依赖：
+
+    ```sh
+    npm install
+    ```
+
+3. 启动开发服务器：
+
+    ```sh
+    npm run serve
+    ```
+
+4. 在浏览器中打开应用 `http://localhost:8080`。
+
+## 使用方法
+
+1. **选择工作状态**：从图例中选择 `公司`、`居家` 或 `清除`。
+2. **更新每日状态**：点击任意日期以应用选定的状态。
+3. **更新每周状态**：将鼠标悬停在任意日期上，然后按 `1`（公司）、`2`（居家）或 `3`（清除），以将整周状态应用于选定的状态。
+4. **浏览月份**：使用 `<` 和 `>` 按钮浏览各个月份。
+
+## 代码概览
+
+### 模板
+
+模板包含日历的结构，包括用于选择状态的图例、月导航和用于显示日期的日历网格。
+
+### 脚本
+
+脚本包括：
+
+- **数据**：当前日期、月份名称、工作日、工作状态、选定状态和悬停的日期。
+- **计算属性**：`currentYear` 获取当前年份。
+- **方法**：
+    - `changeMonth`：更改显示的月份。
+    - `dayClass`：根据日期的状态确定日期的类。
+    - `updateDayStatus`：更新点击日期的状态。
+    - `daysInMonth`：获取月份中的所有日期。
+    - `paddedDaysInMonth`：获取月份中的所有日期，并填充对齐。
+    - `setHoveredDay`：设置当前悬停的日期。
+    - `handleKeydown`：处理键盘事件以更新整周状态。
+    - `updateWeekStatus`：更新整周的状态。
+
+### 样式
+
+样式限定在日历组件中，包括图例、月导航、工作日和日期的样式。使用特定类 `office`、`home` 和 `no-status` 来根据状态为日期设置样式。
+
+## 贡献
+
+1. Fork 此仓库。
+2. 创建一个用于新功能或修复 Bug 的分支。
+3. 提交你的更改。
+4. 将你的分支推送到你的 Fork。
+5. 提交一个 Pull Request。
+
+## 许可证
+
+此项目依据 MIT 许可证授权。详细信息请参见 [LICENSE](LICENSE) 文件。
+
+---
+
+感谢你使用工作日历！如果有任何问题或反馈，请在 GitHub 上提交 issue。
