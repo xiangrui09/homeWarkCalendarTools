@@ -13,7 +13,7 @@ const name = defaultSettings.title || '页面标题' // 页面标题
 module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: process.env.NODE_ENV === 'production'
-      ? '/production-sub-path/'
+      ? '/homeWarkCalendarTools/'
       : '/',
   configureWebpack: {
     // 在 webpack 的 name 字段中提供应用的标题，
