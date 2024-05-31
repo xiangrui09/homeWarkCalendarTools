@@ -1,0 +1,46 @@
+.user-guide h2, .user-guide h3 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  color: #000; }
+.user-guide ol, .user-guide ul {
+  margin-left: 2rem; }
+.user-guide {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  width: 80%;
+  max-width: 930px;
+  margin: 0 auto;
+  color: #777; }
+.user-guide ol > li {
+  margin: .5rem 0; }
+.user-guide strong {
+  font-size: 1.2em;
+  color: #333; }
+.user-guide .status-box {
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 3px;
+  padding: 3px 5px; }
+.user-guide .status-box.office {
+  background-color: lightblue; }
+.user-guide .status-box.home {
+  background-color: lightyellow; }
+.user-guide .status-box.rest {
+  background-color: lightgreen; }
+.user-guide .status-box.clear {
+  background-color: white;
+  border: 1px solid #ccc; }
+.user-guide kbd {
+  background-color: #eee;
+  border-radius: 3px;
+  border: 1px solid #b4b4b4;
+  box-shadow: 0 1px 0 #bbb, 0 -1px 0 #fff;
+  color: #333;
+  display: inline-block;
+  font-size: 0.85em;
+  line-height: 1;
+  padding: 2px 4px;
+  white-space: nowrap; }
+
+/*# sourceMappingURL=UserGuide.css.map */

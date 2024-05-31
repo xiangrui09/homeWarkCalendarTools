@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html, body {
+  font-size: 13px; }
+
+button {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 0 none;
+  margin: 0 5px;
+  text-align: center; }
+
+/*# sourceMappingURL=comm.css.map */

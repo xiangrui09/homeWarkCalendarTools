@@ -1,0 +1,205 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 90%;
+  font-size: 13px;
+
+
+  .calendar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 60%;
+    max-width: 600px;
+
+    .tips {
+      text-align: left;
+      margin: 0 5px 15px;
+      color: #888;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 10px;
+      color:#fff;
+
+      .legend-item {
+        padding: 5px 8px;
+        border: solid 1px #efefef;
+        border-radius: 5px;
+      }
+
+
+      @each $status, $color in $colors {
+        .#{$status} {
+          background-color: $color;
+        }
+      }
+
+
+      label {
+        display: flex;
+        align-items: center;
+        position: revert;
+
+        input {
+          opacity: 0;
+          position: absolute;
+        }
+
+        .box {
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          margin-right: 5px;
+          border: solid 2px #fff;
+          border-radius:15px;
+          &.checked{
+            background:#ffff;
+          }
+        }
+      }
+    }
+
+    .months {
+      display: flex;
+      justify-content: space-between;
+
+      .month {
+        width: 48%;
+
+        .month-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 10px;
+        }
+
+        .weekdays, .days {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+
+          div {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+          }
+        }
+
+        .days {
+          div {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            color: #fff;
+
+            .txt {
+              position: relative;
+              z-index: 2;
+            }
+
+
+            @each $status, $color in $colors {
+              &.#{$status} {
+                background-color: $color;
+              }
+            }
+
+            &.clear, &.no-status {
+              color: #333;
+            }
+
+            &:before {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: rgba(#fff, 0);
+              z-index: 1;
+            }
+
+            &:nth-of-type(7n+7),
+            &:nth-of-type(7n+6) {
+              &:before {
+                z-index: 2;
+                background: rgba(#75a800, .2);
+                border: solid 3px #75a800;
+              }
+            }
+
+            &.today {
+              border-radius: 5px;
+
+              &:before {
+                border: solid 6px $weekend;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .sider {
+    width: 320px;
+    padding: 10px;
+    margin-left: 15px;
+
+    .controls {
+      margin: 0 -5px 10px;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      white-space: nowrap;
+
+      input {
+        margin-right: 5px;
+        border-radius: 5px;
+        border: solid 1px #ccc;
+        padding: 5px 8px;
+        flex: 1 1 auto;
+        width: 0;
+      }
+    }
+
+    .saved-status {
+      margin-bottom: 10px;
+      border: solid 1px #ccc;
+      text-align: left;
+      padding: 10px;
+      border-radius: 5px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 5px -5px;
+
+          .name {
+            padding: 5px 8px;
+            border-radius: 5px;
+            border: 0 none;
+            margin: 0 5px;
+            text-align: center;
+          }
+
+          .name {
+            background: #b1eaae;
+            color: #055300;
+            flex: 1 1 auto;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

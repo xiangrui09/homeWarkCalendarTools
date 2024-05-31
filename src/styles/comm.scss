@@ -1,0 +1,35 @@
+
+$office: #3582fb;
+$home: #ffc77f;
+$rest: #28AB80;
+$clear: #7c8597;
+$no-status:#fff;
+$weekend: #FF6770;
+
+$colors: (
+    office: $office,
+    home: $home,
+    rest: $rest,
+    clear: $clear,
+    'no-status': $no-status
+);
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 13px;
+}
+
+button {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 0 none;
+  margin: 0 5px;
+  text-align: center;
+}
+
