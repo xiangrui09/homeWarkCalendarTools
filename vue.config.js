@@ -1,4 +1,3 @@
-const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
@@ -14,7 +13,7 @@ const envConfig = require(`./config/${environment}.js`)
 // 从设置中获取页面标题
 const name = envConfig.publicName || defaultSettings.title // 页面标题
 
-module.exports = defineConfig({
+module.exports = {
   transpileDependencies: true,
   publicPath: envConfig.publicPath,
   configureWebpack: {
@@ -34,9 +33,9 @@ module.exports = defineConfig({
   chainWebpack(config) {
     // 修改默认的 htmlWebpackPlugin 插件配置
     config.plugin('html').tap(args => {
-      args[0].title = name;
-      return args;
-    });
+      args[0].title = name
+      return args
+    })
   },
   css: {
     loaderOptions: {
@@ -46,4 +45,4 @@ module.exports = defineConfig({
       }
     }
   }
-})
+}
