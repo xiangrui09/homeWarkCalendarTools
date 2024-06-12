@@ -7,14 +7,16 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+// 加载环境配置
+const environment = process.env.NODE_ENV || 'development'
+const envConfig = require(`./config/${environment}.js`)
+
 // 从设置中获取页面标题
-const name = defaultSettings.title || '页面标题' // 页面标题
+const name = envConfig.publicName || defaultSettings.title // 页面标题
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: process.env.NODE_ENV === 'production'
-      ? '/homeWarkCalendarTools/'
-      : '/',
+  publicPath: envConfig.publicPath,
   configureWebpack: {
     // 在 webpack 的 name 字段中提供应用的标题，
     // 以便在 index.html 中注入正确的标题。

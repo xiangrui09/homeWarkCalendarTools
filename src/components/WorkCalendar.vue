@@ -38,7 +38,10 @@
                                     @click="updateDayStatus(day)"
                                     @mouseenter="setHoveredDay(day)"
                             >
-                                <span class="txt">{{ day ? day.getDate() : '' }}</span>
+                                <span class="txt">{{ day ? day.getUTCDate() : '' }}</span>
+                                <sup class="holiday-name" v-if="day && holidays[getDateString(day)]">
+                                    {{ holidays[getDateString(day)] }}
+                                </sup>
                             </div>
                         </div>
                     </div>
@@ -70,6 +73,7 @@
 
 <script>
     import UserGuide from "@/components/UserGuide";
+    import { holidays } from "@/data/holidays"; // 导入节假日数据
     import '@/styles/WorkCalendar.scss'; // 引入独立的 SCSS 文件
 
     export default {
@@ -90,7 +94,9 @@
                 hoveredDay: null, // 当前鼠标悬停的日期
                 saveName: '', // 保存状态的名称
                 savedStatuses: JSON.parse(localStorage.getItem('savedStatuses')) || {}, // 从localStorage中加载保存的状态
-                types: ['office', 'home', 'rest', 'clear'] // 状态类型
+                types: ['office', 'home', 'rest', 'clear'], // 状态类型
+                holidays
+
             };
         },
         computed: {
@@ -105,13 +111,16 @@
             window.removeEventListener('keydown', this.handleKeydown);
         },
         methods: {
+            getDateString(day) {
+                return day.toISOString().split('T')[0];
+            },
             changeMonth(delta) {
                 this.currentDate.setMonth(this.currentDate.getMonth() + delta);
                 this.currentDate = new Date(this.currentDate);
             },
             dayClass(day) {
                 if (!day) return 'no-status';
-                const dateString = day.toISOString().split('T')[0];
+                const dateString = this.getDateString(day);
                 const classes = [];
 
                 if (this.workStatus[dateString] === 'office') {
@@ -121,8 +130,20 @@
                 } else if (this.workStatus[dateString] === 'rest') {
                     classes.push('rest');
                 } else {
-                    classes.push('no-status');
+                    const dayOfWeek = day.getDay();
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        this.workStatus[dateString] = 'rest'
+                        classes.push('rest');
+                    }else{
+                        classes.push('no-status');
+                    }
                 }
+
+                // 添加 holiday 类，如果当天是节假日
+                if (holidays[dateString]) {
+                    classes.push('holiday');
+                }
+
 
                 // 添加 today 类，如果当前日期是今天
                 const today = new Date();
@@ -139,7 +160,7 @@
             },
             updateDayStatus(day) {
                 if (!day) return;
-                const dateString = day.toISOString().split('T')[0];
+                const dateString = this.getDateString(day);
                 if (this.selectedStatus === 'office') {
                     this.$set(this.workStatus, dateString, 'office');
                 } else if (this.selectedStatus === 'home') {
@@ -200,6 +221,13 @@
                 const days = this.daysInMonth(month);
                 const firstDayOfWeek = (days[0].getDay() + 6) % 7; // 调整使星期一为每周的第一天
                 const paddingDays = Array(firstDayOfWeek).fill(null);
+
+                // 如果有 paddingDays，那么在第一个星期一之前填充
+                if (paddingDays.length > 0) {
+                    const prevMonthDays = this.daysInMonth(month - 1).slice(-paddingDays.length);
+                    return prevMonthDays.concat(days);
+                }
+
                 return paddingDays.concat(days);
             },
             setHoveredDay(day) {
@@ -221,7 +249,7 @@
                             this.selectedStatus = 'rest';
                             break;
                         case '$':
-                            this.selectedStatus = 'clear';
+                            this.selectedStatus = null;
                             break;
                         default:
                             return;
@@ -243,7 +271,7 @@
                         this.selectedStatus = 'rest';
                         break;
                     case '4':
-                        this.selectedStatus = 'clear';
+                        this.selectedStatus = null;
                         break;
                     default:
                         return;
@@ -257,7 +285,13 @@
                 for (let i = 0; i < 7; i++) {
                     const currentDay = new Date(startOfWeek);
                     currentDay.setDate(startOfWeek.getDate() + i);
-                    const dateString = currentDay.toISOString().split('T')[0];
+                    // const dateString = currentDay.toISOString().split('T')[0];
+                    const dateString = this.getDateString(currentDay);
+
+                    // console.log(status, this.workStatus[dateString], status !== null, !status);
+                    // if (this.workStatus[dateString] === undefined && status !== null) {
+                    //     this.$set(this.workStatus, dateString, status);
+                    // }
                     this.$set(this.workStatus, dateString, status);
                 }
                 localStorage.setItem('workStatus', JSON.stringify(this.workStatus)); // 保存工作状态到localStorage

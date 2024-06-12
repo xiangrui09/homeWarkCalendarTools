@@ -1,17 +1,22 @@
-
 $office: #3582fb;
 $home: #ffc77f;
 $rest: #28AB80;
 $clear: #7c8597;
-$no-status:#fff;
+$no-status: #fff;
 $weekend: #FF6770;
+$holiday: #db52ff;
 
 $colors: (
-    office: $office,
-    home: $home,
-    rest: $rest,
-    clear: $clear,
-    'no-status': $no-status
+        office: $office,
+        home: $home,
+        rest: $rest,
+        clear: $clear,
+        'no-status': $no-status,
+);
+
+$borderColors: (
+        today: $weekend,
+        holiday: $holiday
 );
 
 
